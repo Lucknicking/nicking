@@ -19,6 +19,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
     @Override
     public UserEntity userLogin(UserEntity user) {
-        return baseMapper.queryByUserName(user.getUserName());
+        UserEntity userEntity = baseMapper.queryByUserName(user.getUserName());
+        if ((null != userEntity) && (userEntity.getPassword()).equals(user.getPassword())) {
+            return userEntity;
+        }
+        return null;
     }
 }
