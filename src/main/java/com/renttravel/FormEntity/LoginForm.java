@@ -1,6 +1,6 @@
-package com.renttravel.dao;
+package com.renttravel.FormEntity;
 
-public class User {
+public class LoginForm {
     private String userName;
     private String password;
 
