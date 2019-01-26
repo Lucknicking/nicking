@@ -8,4 +8,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserDao extends BaseMapper<UserEntity> {
     UserEntity queryByUserName(@Param("userName") String userName);
+    int insertUser(UserEntity user);
 }

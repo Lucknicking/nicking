@@ -32,4 +32,16 @@ public class IndexController {
         }
         return R.error(401, "账号或密码错误");
     }
+
+    /**
+    * 用户注册
+    * created by nicking
+    * data: 2019/1/26
+    * time: 14:15
+    */
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public R register(@RequestBody UserEntity user) {
+        int userId = userService.userRegister(user);
+        return R.ok().put("id", userId);
+    }
 }

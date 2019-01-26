@@ -1,11 +1,9 @@
 package com.renttravel.service.Impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
-import com.renttravel.FormEntity.LoginForm;
 import com.renttravel.dao.UserDao;
 import com.renttravel.entity.UserEntity;
 import com.renttravel.service.UserService;
-import com.renttravel.utils.MD5;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,5 +22,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
             return userEntity;
         }
         return null;
+    }
+
+    @Override
+    public int userRegister(UserEntity userEntity) {
+        return baseMapper.insertUser(userEntity);
     }
 }

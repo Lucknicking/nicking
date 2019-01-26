@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.renttravel.dao.UserDao">
 
-<!--    <update id="updateValueByKey" parameterType="map">
-		update sys_config set param_value = #{paramValue} where param_key = #{paramKey}
-	</update>-->
-
     <select id="queryByUserName" parameterType="string" resultType="com.renttravel.entity.UserEntity">
 		select * from sys_user where user_name = #{userName}
 	</select>
+
+	<insert id="insertUser" parameterType="com.renttravel.entity.UserEntity" useGeneratedKeys="true" keyProperty="id">
+       insert into sys_user(user_name,nick_name,password,email,phone) values (#{userName},#{nickName},#{password},#{email},#{phone})
+    </insert>
 
 </mapper>
