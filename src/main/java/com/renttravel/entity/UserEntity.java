@@ -3,15 +3,18 @@ package com.renttravel.entity;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 
+import java.util.Date;
+
 @TableName("sys_user")
 public class UserEntity {
     @TableId
-    private Long id;
+    private long id;
     private String email;
     private String phone;
     private String userName;
     private String nickName;
     private String password;
+    private Date createTime;
 
     public String getUserName() {
         return userName;
@@ -29,11 +32,11 @@ public class UserEntity {
         this.password = password;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -59,5 +62,13 @@ public class UserEntity {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

@@ -13,18 +13,19 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api")
-public class IndexController {
+public class UserController {
 
     @Autowired
     private UserService userService;
 
     /**
      * 登录
+     *
      * @param user
      * @return 登录成功 返回用户实体类信息
      */
-    @RequestMapping(value = "/login",method = RequestMethod.POST)
-    public R login(HttpSession session, @RequestBody UserEntity user){
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public R login(HttpSession session, @RequestBody UserEntity user) {
         UserEntity userEntity = userService.userLogin(user);
         if (null != userEntity) {
             session.setAttribute(user.getUserName(), userEntity.getUserName());
@@ -34,11 +35,11 @@ public class IndexController {
     }
 
     /**
-    * 用户注册
-    * created by nicking
-    * data: 2019/1/26
-    * time: 14:15
-    */
+     * 用户注册
+     * created by nicking
+     * data: 2019/1/26
+     * time: 14:15
+     */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public R register(@RequestBody UserEntity user) {
         int userId = userService.userRegister(user);
