@@ -6,4 +6,8 @@
        <!--insert into news(user_id,imgUrl,title,content) values (#{userId},#{imaUrl},#{title},#{content})-->
     <!--</insert>-->
 
+	<select id="getNewsList" resultType="com.renttravel.entity.NewsEntity">
+		select * from news
+	</select>
+
 </mapper>

@@ -5,12 +5,13 @@ import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.util.Date;
 
-@TableName("zan")
-public class Zan {
+@TableName("comments")
+public class CommentsEntity {
     @TableId
     private long id;
-    private long userId;
     private long newsId;
+    private long userId;
+    private String comments;
     private Date createTime;
 
     public long getId() {
@@ -21,6 +22,14 @@ public class Zan {
         this.id = id;
     }
 
+    public long getNewsId() {
+        return newsId;
+    }
+
+    public void setNewsId(long newsId) {
+        this.newsId = newsId;
+    }
+
     public long getUserId() {
         return userId;
     }
@@ -29,12 +38,12 @@ public class Zan {
         this.userId = userId;
     }
 
-    public long getNewsId() {
-        return newsId;
+    public String getComments() {
+        return comments;
     }
 
-    public void setNewsId(long newsId) {
-        this.newsId = newsId;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public Date getCreateTime() {
