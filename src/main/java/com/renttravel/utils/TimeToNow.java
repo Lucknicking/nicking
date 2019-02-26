@@ -9,18 +9,18 @@ public class TimeToNow {
 //        时间差为
         long interval = System.currentTimeMillis()/1000 - secondDate;
         if (interval < 60) {
-            result = interval + "s";
+            result = interval + "秒";
         } else if (interval < 3600) {
-            result = interval / 60 + "min";
+            result = interval / 60 + "分钟";
         } else if (interval < 86400) {
-            result = interval / 3600 + "h";
+            result = interval / 3600 + "小时";
         } else if (interval < 2592000) {
-            result = interval / 86400 + "d";
+            result = interval / 86400 + "天";
         } else if (interval < 946080000) {
-            result = interval / 2592000 + "m";
+            result = interval / 2592000 + "月";
         } else {
-            result = interval / 946080000 + "y";
+            result = interval / 946080000 + "年";
         }
-        return result;
+        return result + "前";
     }
 }

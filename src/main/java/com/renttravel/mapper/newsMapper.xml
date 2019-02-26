@@ -7,7 +7,7 @@
     <!--</insert>-->
 
 	<select id="getNewsList" resultType="com.renttravel.entity.NewsEntity">
-		select * from news
+		select * from news order by create_time DESC
 	</select>
 
 </mapper>

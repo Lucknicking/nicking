@@ -14,7 +14,16 @@ public class UserEntity {
     private String userName;
     private String nickName;
     private String password;
+    private String imgUrl;
     private Date createTime;
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
 
     public String getUserName() {
         return userName;
