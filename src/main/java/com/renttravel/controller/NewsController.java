@@ -5,6 +5,7 @@ import com.renttravel.FormEntity.NewsList;
 import com.renttravel.entity.CommentsEntity;
 import com.renttravel.entity.NewsEntity;
 import com.renttravel.entity.ZanEntity;
+import com.renttravel.interceptor.SysLog;
 import com.renttravel.service.CommentsService;
 import com.renttravel.service.NewsService;
 import com.renttravel.service.ZanService;
@@ -35,13 +36,15 @@ public class NewsController {
     private ZanService zanService;
     @Autowired
     private CommentsService commentsService;
+
     /**
      * 发布动态
      */
+    @SysLog("发布动态")
     @RequestMapping(value = "/news/send", method = RequestMethod.POST)
     public R insertNews(@RequestBody NewsEntity news) {
         boolean flag = newsService.insertNew(news);
-        if(flag) {
+        if (flag) {
             return R.ok();
         }
         return R.error();
@@ -50,11 +53,12 @@ public class NewsController {
     /**
      * 评论
      */
+    @SysLog("评论动态")
     @RequestMapping(value = "/news/send/comment", method = RequestMethod.POST)
     public R sendComment(@RequestBody CommentsEntity comment) {
         boolean flag = commentsService.insert(comment);
         List<CommentsForm> list = commentsService.commentsList(comment.getNewsId());
-        if(flag) {
+        if (flag) {
             return R.ok().put("data", list);
         }
         return R.error();
@@ -72,21 +76,23 @@ public class NewsController {
     /**
      * 删除评论
      */
-    @RequestMapping(value = "/news/comment/delete", method = RequestMethod.GET)
-    public R deleteComment(long id, long newsId) {
-        boolean flag = commentsService.deleteById(id);
-        List<CommentsForm> list = commentsService.commentsList(newsId);
+    @SysLog("删除评论")
+    @RequestMapping(value = "/news/comment/delete", method = RequestMethod.POST)
+    public R deleteComment(@RequestBody CommentsEntity commentsEntity) {
+        boolean flag = commentsService.deleteById(commentsEntity.getId());
+        List<CommentsForm> list = commentsService.commentsList(commentsEntity.getNewsId());
         return R.ok().put("data", list);
     }
 
     /**
      * 删除动态
      */
-    @RequestMapping(value = "/news/delete", method = RequestMethod.GET)
-    public R deleteNew(long id) {
-        boolean flag = newsService.deleteById(id);
+    @SysLog("删除动态")
+    @RequestMapping(value = "/news/delete", method = RequestMethod.POST)
+    public R deleteNew(@RequestBody NewsEntity newsEntity) {
+        boolean flag = newsService.deleteById(newsEntity.getId());
         Map<String, Object> map = new HashMap<>();
-        map.put("news_id", id);
+        map.put("news_id", newsEntity.getId());
         commentsService.deleteByMap(map);
         zanService.deleteByMap(map);
         List<NewsList> list = newsService.getNewsList();
@@ -98,6 +104,7 @@ public class NewsController {
      * true 代表点赞
      * false 代表取消赞
      */
+    @SysLog("给动态点赞")
     @RequestMapping(value = "/news/approvel", method = RequestMethod.GET)
     public R approvelNews(ZanEntity zan) {
         boolean flag = zanService.InsertOrDelete(zan);
@@ -109,7 +116,7 @@ public class NewsController {
      */
     @RequestMapping(value = "/news/list", method = RequestMethod.GET)
     public R getNewsList() {
-        List<NewsList> newsList  = newsService.getNewsList();
+        List<NewsList> newsList = newsService.getNewsList();
         return R.ok().put("data", newsList);
     }
 }

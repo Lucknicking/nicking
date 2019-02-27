@@ -28,7 +28,7 @@ public class UserController {
     public R login(HttpSession session, @RequestBody UserEntity user) {
         UserEntity userEntity = userService.userLogin(user);
         if (null != userEntity) {
-            session.setAttribute(user.getUserName(), userEntity.getUserName());
+            session.setAttribute(String.valueOf(user.getId()), userEntity.getUserName());
             return R.ok().put("data", userEntity);
         }
         return R.error(401, "账号或密码错误");
