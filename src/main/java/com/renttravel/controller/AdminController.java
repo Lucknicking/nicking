@@ -9,11 +9,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class AdminController {
     @RequestMapping(value = "/admin/index", method = RequestMethod.GET)
-    public String index(){
+    public String index() {
         return "adminlogin";
     }
+
     @RequestMapping(value = "/admin/login", method = RequestMethod.POST)
-    public String login(HttpSession session, String username, String password){
+    public String login(HttpSession session, String username, String password) {
         if (username.equals("admin") && password.equals("admin123")) {
             session.setAttribute("admin", "logined");
             return "redirect:/index";

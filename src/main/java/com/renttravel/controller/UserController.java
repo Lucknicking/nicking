@@ -1,7 +1,9 @@
 package com.renttravel.controller;
 
 import com.renttravel.entity.UserEntity;
+import com.renttravel.interceptor.SysLog;
 import com.renttravel.service.UserService;
+import com.renttravel.utils.MD5;
 import com.renttravel.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,12 +28,23 @@ public class UserController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public R login(HttpSession session, @RequestBody UserEntity user) {
+        user.setPassword(MD5.MD5(user.getPassword()));
         UserEntity userEntity = userService.userLogin(user);
         if (null != userEntity) {
             session.setAttribute(String.valueOf(user.getId()), userEntity.getUserName());
             return R.ok().put("data", userEntity);
         }
         return R.error(401, "账号或密码错误");
+    }
+
+    /**
+     * 修改用户信息
+     */
+    @SysLog("修改用户信息")
+    @RequestMapping(value = "/edit/user/info", method = RequestMethod.POST)
+    public R editUserInfo(@RequestBody UserEntity user) {
+        boolean flag = userService.updateById(user);
+        return R.ok().put("id", flag);
     }
 
     /**
@@ -42,6 +55,7 @@ public class UserController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public R register(@RequestBody UserEntity user) {
+        user.setPassword(MD5.MD5(user.getPassword()));
         int userId = userService.userRegister(user);
         return R.ok().put("id", userId);
     }

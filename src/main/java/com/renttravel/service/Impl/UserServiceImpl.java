@@ -6,6 +6,11 @@ import com.renttravel.entity.UserEntity;
 import com.renttravel.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
 * 用户 Service
 * created by nicking
@@ -17,11 +22,15 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
 
     @Override
     public UserEntity userLogin(UserEntity user) {
-        UserEntity userEntity = baseMapper.queryByUserName(user.getUserName());
-        if ((null != userEntity) && (userEntity.getPassword()).equals(user.getPassword())) {
-            return userEntity;
+        Map<String, Object> map = new HashMap<>();
+        map.put("user_name",user.getUserName());
+        map.put("password",user.getPassword());
+        List<UserEntity> list = baseMapper.selectByMap(map);
+        UserEntity userEntity = null;
+        if (list.size() > 0) {
+            userEntity = list.get(0);
         }
-        return null;
+        return userEntity;
     }
 
     @Override

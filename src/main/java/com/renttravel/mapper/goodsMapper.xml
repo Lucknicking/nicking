@@ -4,4 +4,7 @@
     <!--<select id="totalComments" resultType="com.renttravel.FormEntity.StatNewsCommentsOrZan">
 		select count(*) as total, news_id from comments group by news_id
 	</select>-->
+    <select id="especialList" resultType="com.renttravel.entity.GoodsEntity">
+		select * from goods order by id DESC;
+	</select>
 </mapper>

@@ -1,7 +1,9 @@
 package com.renttravel.controller;
 
 import com.renttravel.entity.EspecialGoodsEntity;
+import com.renttravel.entity.GoodsEntity;
 import com.renttravel.service.EspecialGoodsService;
+import com.renttravel.service.GoodsService;
 import com.renttravel.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,14 +24,27 @@ public class HomePageController {
 
     @Autowired
     private EspecialGoodsService especialGoodsService;
+    @Autowired
+    private GoodsService goodsService;
     /**
      * 特价商品列表
      *
-     * @return 商品列表
+     * @return 特价商品列表
      */
     @RequestMapping(value = "/especial/goods_list", method = RequestMethod.GET)
     public R especialGoodsList() {
         List<EspecialGoodsEntity> list = especialGoodsService.especialGoodsList();
+        return R.ok().put("data", list);
+    }
+
+    /**
+     * 商品列表
+     *
+     * @return 商品列表
+     */
+    @RequestMapping(value = "/goods/goods_list", method = RequestMethod.GET)
+    public R GoodsList() {
+        List<GoodsEntity> list = goodsService.GoodsList();
         return R.ok().put("data", list);
     }
 }

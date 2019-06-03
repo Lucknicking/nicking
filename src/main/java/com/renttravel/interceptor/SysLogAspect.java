@@ -91,7 +91,12 @@ public class SysLogAspect {
             }
         }
         //用户名
-        int userId = Integer.valueOf(map.get("userId").toString());
+        int userId = 0;
+        if (null == map.get("userId")) {
+            userId = Integer.valueOf(map.get("id").toString());
+        } else {
+            userId = Integer.valueOf(map.get("userId").toString());
+        }
         UserEntity user = userService.selectById(userId);
         sysLog.setUsername(user.getUserName());
 
